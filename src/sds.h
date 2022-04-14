@@ -49,10 +49,10 @@ struct __attribute__ ((__packed__)) sdshdr5 {
     char buf[];
 };
 struct __attribute__ ((__packed__)) sdshdr8 {
-    uint8_t len; /* used */
-    uint8_t alloc; /* excluding the header and null terminator */
-    unsigned char flags; /* 3 lsb of type, 5 unused bits */
-    char buf[];
+    uint8_t len; /* used 已使用长度，用1字节长度存储*/
+    uint8_t alloc; /* excluding the header and null terminator 总长度用1字节长度存储*/
+    unsigned char flags; /* 3 lsb of type, 5 unused bits 低3位存储类型，高5位预留*/
+    char buf[]; // 柔性数组，存放实际内容
 };
 struct __attribute__ ((__packed__)) sdshdr16 {
     uint16_t len; /* used */
