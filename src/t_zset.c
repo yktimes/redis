@@ -162,8 +162,10 @@ zskiplistNode *zslInsert(zskiplist *zsl, double score, sds ele) {
     level = zslRandomLevel();
     if (level > zsl->level) { // 如果生成的随机层数大于当前跳跃表层数高度，开始调整跳跃表高度(头节点)
         for (i = zsl->level; i < level; i++) {
-            rank[i] = 0;  // rank[i]存的是头节点到update[i]所经过的节点数
-            update[i] = zsl->header; // 现在的i一定是头节点
+            // 设定rank数组中大于原level层以上的值为0
+            // 同时设定update数组大于原level层以上的数据
+            rank[i] = 0;
+            update[i] = zsl->header;
             update[i]->level[i].span = zsl->length; // 暂且先赋值为跳跃表的总长度
         }
         zsl->level = level; // 更新层数高度
